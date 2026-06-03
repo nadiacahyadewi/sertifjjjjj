@@ -1,0 +1,11 @@
+# Office temporary files
+~$*.pptx
+~$*.docx
+~$*.xlsx
+
+# Python
+__pycache__/
+*.pyc
+
+# Mac OS
+.DS_Store

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sertifikasi Kuis Interaktif</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        
+        <!-- Layar Mulai -->
+        <div id="start-screen" class="screen active">
+            <h1>Latihan Sertifikasi</h1>
+            <p>Uji kemampuan Anda dengan 40 soal standar sertifikasi internasional.</p>
+            <p class="subtitle">Jawaban dan penjelasan akan ditampilkan setelah semua soal dijawab.</p>
+            <button id="start-btn" class="btn primary-btn">Mulai Kuis</button>
+        </div>
+
+        <!-- Layar Kuis -->
+        <div id="quiz-screen" class="screen">
+            <div class="header">
+                <span id="question-counter">Soal 1 dari 40</span>
+                <div class="progress-bar">
+                    <div id="progress" class="progress"></div>
+                </div>
+            </div>
+            
+            <div class="question-container">
+                <div class="controls-bar">
+                    <button id="lang-toggle-btn" class="btn small-btn">Translate to Indonesia</button>
+                </div>
+                
+                <div id="question-images" class="question-images"></div>
+                
+                <h2 id="question-en" class="question-text en">Question</h2>
+                <h3 id="question-id" class="question-text id" style="display: none;">Soal</h3>
+                
+                <div class="options-container">
+                    <div id="options-text" class="options-text"></div>
+                    <div id="input-area" class="input-area">
+                        <!-- Dynamic inputs will be generated here by script.js -->
+                    </div>
+                </div>
+            </div>
+            
+            <div class="footer">
+                <button id="prev-btn" class="btn secondary-btn" disabled>Sebelumnya</button>
+                <button id="next-btn" class="btn primary-btn">Selanjutnya</button>
+            </div>
+        </div>
+
+        <!-- Layar Hasil -->
+        <div id="result-screen" class="screen">
+            <h1>Hasil & Pembahasan</h1>
+            <p class="subtitle">Tinjau jawaban Anda dan pelajari penjelasannya.</p>
+            
+            <div id="review-container" class="review-container">
+                <!-- Review content will be generated here -->
+            </div>
+            
+            <button id="restart-btn" class="btn primary-btn" style="margin-top: 2rem;">Ulangi Kuis</button>
+        </div>
+
+    </div>
+
+    <!-- Data dan Script -->
+    <script src="data.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
