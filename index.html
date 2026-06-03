@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sertifikasi Internasional - Hub</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap');
+        
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f3f4f6;
+            color: #111827;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff;
+            padding: 3rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            width: 90%;
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #1f2937;
+        }
+
+        p {
+            color: #6b7280;
+            margin-bottom: 2rem;
+            line-height: 1.5;
+        }
+
+        .link-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .card {
+            display: flex;
+            align-items: center;
+            padding: 1.25rem;
+            background-color: #f9fafb;
+            border: 1px solid #e5e7eb;
+            border-radius: 8px;
+            text-decoration: none;
+            color: #111827;
+            transition: all 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            border-color: #d1d5db;
+            background-color: #ffffff;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+            margin-right: 1.5rem;
+        }
+
+        .card-content {
+            text-align: left;
+        }
+
+        .card-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .card-desc {
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+        
+        .badge {
+            background: #3b82f6;
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 99px;
+            margin-left: 0.5rem;
+            vertical-align: middle;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>Sertifikasi Internasional</h1>
+        <p>Pilih materi atau simulasi ujian yang ingin Anda akses di bawah ini.</p>
+
+        <div class="link-grid">
+            <a href="quiz/index.html" class="card">
+                <div class="card-icon">💻</div>
+                <div class="card-content">
+                    <div class="card-title">Aplikasi Simulator Kuis <span class="badge">Interaktif</span></div>
+                    <div class="card-desc">Latihan ujian 40 soal dalam antarmuka ujian asli dengan penilaian otomatis.</div>
+                </div>
+            </a>
+
+            <a href="Pembahasan_Soal.pdf" class="card" target="_blank">
+                <div class="card-icon">📄</div>
+                <div class="card-content">
+                    <div class="card-title">Modul PDF Pembahasan</div>
+                    <div class="card-desc">Buku panduan PDF untuk membaca kunci jawaban secara lengkap.</div>
+                </div>
+            </a>
+
+            <a href="Software_Development_Exam_QA.pptx" class="card">
+                <div class="card-icon">📊</div>
+                <div class="card-content">
+                    <div class="card-title">Presentasi PowerPoint (Bilingual)</div>
+                    <div class="card-desc">Slide presentasi dwibahasa untuk pembelajaran di kelas.</div>
+                </div>
+            </a>
+        </div>
+    </div>
+
+</body>
+</html>
