@@ -183,12 +183,15 @@ function renderInputs(q, index, isInlineDropdown) {
             const div = document.createElement('div');
             div.className = 'dropdown-container';
             for (let i = 0; i < ui.count; i++) {
+                const dd = ui.dropdowns[i];
+                const label = dd && dd.label ? dd.label : `Bagian ${i+1}`;
+                const options = dd && dd.options ? dd.options : (ui.fallback_options || []);
                 const item = document.createElement('div');
                 item.className = 'dropdown-item';
-                item.innerHTML = `<span style="color:var(--text-muted)">Bagian ${i+1}:</span>
+                item.innerHTML = `<span style="color:var(--text-muted)">${label}:</span>
                     <select class="dropdown-select" name="q_${index}_${i}">
                         <option value="">-- Select --</option>
-                        ${ui.fallback_options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
+                        ${options.map(opt => `<option value="${opt}">${opt}</option>`).join('')}
                     </select>`;
                 div.appendChild(item);
             }
@@ -245,22 +248,16 @@ function saveCurrentAnswer() {
             const checked = document.querySelector(`input[name="q_${currentQuestionIndex}_${i}"]:checked`);
             ans.push(checked ? checked.value : '-');
         }
-        userAnswers[currentQuestionIndex] = ans.join(', ');
+        userAnswers[currentQuestionIndex] = ans.join('|||');
     }
     else if (ui.type === 'dropdown') {
         let ans = [];
         const isInline = q.soal_en.includes('[Dropdown 1]');
         for (let i = 0; i < ui.count; i++) {
-            if (isInline) {
-                // Read from the visible select (EN or ID)
-                const sel = document.querySelector(`select[name="q_${currentQuestionIndex}_${i}"]`);
-                ans.push(sel ? sel.value || '-' : '-');
-            } else {
-                const sel = document.querySelector(`select[name="q_${currentQuestionIndex}_${i}"]`);
-                ans.push(sel ? sel.value || '-' : '-');
-            }
+            const sel = document.querySelector(`select[name="q_${currentQuestionIndex}_${i}"]`);
+            ans.push(sel ? sel.value || '-' : '-');
         }
-        userAnswers[currentQuestionIndex] = ans.join(', ');
+        userAnswers[currentQuestionIndex] = ans.join('|||');
     }
     else if (ui.type === 'matching') {
         let ans = [];
@@ -273,7 +270,7 @@ function saveCurrentAnswer() {
                 ans.push(inp ? inp.value || '-' : '-');
             }
         }
-        userAnswers[currentQuestionIndex] = ans.join(', ');
+        userAnswers[currentQuestionIndex] = ans.join('|||');
     }
     else {
         const val = document.querySelector(`textarea[name="q_${currentQuestionIndex}"]`).value;
@@ -301,7 +298,7 @@ function restoreAnswer(index) {
         }
     }
     else if (ui.type === 'true-false') {
-        const parts = ans.split(', ');
+        const parts = ans.split('|||');
         for (let i = 0; i < ui.statements.length; i++) {
             if(parts[i] === '-') continue;
             const rb = document.querySelector(`input[name="q_${index}_${i}"][value="${parts[i]}"]`);
@@ -310,7 +307,7 @@ function restoreAnswer(index) {
     }
     else if (ui.type === 'dropdown') {
         const isInline = q.soal_en.includes('[Dropdown 1]');
-        const parts = ans.split(', ');
+        const parts = ans.split('|||');
         for (let i = 0; i < ui.count; i++) {
             if(parts[i] === '-') continue;
             if (isInline) {
@@ -323,7 +320,7 @@ function restoreAnswer(index) {
         }
     }
     else if (ui.type === 'matching') {
-        const parts = ans.split(', ');
+        const parts = ans.split('|||');
         for (let i = 0; i < ui.count; i++) {
             if(parts[i] === '-') continue;
             const sel = document.querySelector(`select[name="q_${index}_${i}"]`);
@@ -341,19 +338,86 @@ function restoreAnswer(index) {
     }
 }
 
+function isAnswerEmpty(ans) {
+    if (!ans) return true;
+    // Remove delimiters, whitespace, and dash-only entries
+    const clean = ans.replace(/\|\|\|/g, '').replace(/[\s,-]/g, '');
+    return clean === '';
+}
+
 function generateReview() {
     const container = domElements.reviewContainer;
     container.innerHTML = '';
     
+    let correctCount = 0;
+    let wrongCount = 0;
+    let unansweredCount = 0;
+    
     quizData.forEach((q, i) => {
-        const ans = userAnswers[i] || '<i>Tidak dijawab</i>';
+        const rawAns = userAnswers[i] || '';
+        const isUnanswered = isAnswerEmpty(rawAns);
+        // Format display answer: replace ||| with comma for display
+        const displayAns = rawAns.replace(/\|\|\|/g, ', ');
+        const ans = isUnanswered ? '<i>Tidak dijawab</i>' : displayAns;
+        
+        // Grading logic
+        let isCorrect = false;
+        if (!isUnanswered) {
+            isCorrect = checkAnswer(q, rawAns);
+        }
+        
+        if (isUnanswered) {
+            unansweredCount++;
+        } else if (isCorrect) {
+            correctCount++;
+        } else {
+            wrongCount++;
+        }
+        
+        // Status badge
+        let statusClass, statusText, itemClass;
+        if (isUnanswered) {
+            statusClass = 'unanswered';
+            statusText = '⚪ Tidak Dijawab';
+            itemClass = 'is-unanswered';
+        } else if (isCorrect) {
+            statusClass = 'correct';
+            statusText = '✅ Benar';
+            itemClass = 'is-correct';
+        } else {
+            statusClass = 'wrong';
+            statusText = '❌ Salah';
+            itemClass = 'is-wrong';
+        }
+        
+        // Build options HTML if available
+        let optionsHtml = '';
+        if (q.ui_info.type === 'multiple-choice' && q.ui_info.options && q.ui_info.options.length > 0) {
+            const optItems = q.ui_info.options.map(opt => `<li>${opt}</li>`).join('');
+            optionsHtml = `
+                <div class="review-options">
+                    <div class="review-opt-title">Pilihan:</div>
+                    <ul>${optItems}</ul>
+                </div>`;
+        } else if (q.pilihan_en && q.pilihan_en.trim() !== '' && q.pilihan_en.trim() !== 'True / False choices.') {
+            const optItems = q.pilihan_en.split('\n').map(opt => `<li>${opt}</li>`).join('');
+            optionsHtml = `
+                <div class="review-options">
+                    <div class="review-opt-title">Pilihan:</div>
+                    <ul>${optItems}</ul>
+                </div>`;
+        }
+        
         const div = document.createElement('div');
-        div.className = 'review-item';
+        div.className = `review-item ${itemClass}`;
         div.innerHTML = `
+            <span class="review-status ${statusClass}">${statusText}</span>
             <h3>${q.no}. ${q.soal_en}</h3>
             <h4>Soal: ${q.soal_id}</h4>
             
-            <div style="margin-top:1.5rem">
+            ${optionsHtml}
+            
+            <div style="margin-top:1rem">
                 <div style="color:var(--text-muted); font-size:0.9rem; margin-bottom:0.5rem">Jawaban Anda:</div>
                 <div class="ans-box user-ans">${ans}</div>
                 
@@ -368,6 +432,105 @@ function generateReview() {
         `;
         container.appendChild(div);
     });
+    
+    // Update score summary
+    const total = quizData.length;
+    const percentage = Math.round((correctCount / total) * 100);
+    document.getElementById('score-percentage').textContent = percentage + '%';
+    document.getElementById('score-correct').textContent = correctCount;
+    document.getElementById('score-wrong').textContent = wrongCount;
+    document.getElementById('score-unanswered').textContent = unansweredCount;
+}
+
+function checkAnswer(q, userAns) {
+    if (isAnswerEmpty(userAns)) return false;
+    
+    const jawaban = q.jawaban.trim();
+    const user = userAns.trim();
+    
+    // For multiple-choice (single): compare first letter (A, B, C, D)
+    if (q.ui_info.type === 'multiple-choice' && !q.ui_info.is_multi) {
+        const correctLetter = jawaban.charAt(0).toUpperCase();
+        const userLetter = user.charAt(0).toUpperCase();
+        return userLetter === correctLetter;
+    }
+    
+    // For multiple-choice (multi): compare sorted selected letters
+    if (q.ui_info.type === 'multiple-choice' && q.ui_info.is_multi) {
+        // jawaban formats: "A dan D", "A, B, D", "B dan E", "A dan B dan C"
+        // Split by separators (dan, and, comma) then get first letter of each part
+        const correctLetters = jawaban
+            .split(/[,]|\s+dan\s+|\s+and\s+/i)
+            .map(s => s.trim())
+            .filter(s => s.length > 0)
+            .map(s => s.charAt(0).toUpperCase())
+            .sort();
+        
+        // User answer is saved as "A, D" format from checkboxes
+        const userLetters = user
+            .split(',')
+            .map(s => s.trim())
+            .filter(s => s.length > 0)
+            .map(s => s.charAt(0).toUpperCase())
+            .sort();
+        
+        return correctLetters.join(',') === userLetters.join(',');
+    }
+    
+    // For true-false: compare ||| separated values
+    if (q.ui_info.type === 'true-false') {
+        const correctParts = jawaban.toLowerCase().split(',').map(s => s.trim());
+        const userParts = user.split('|||').map(s => s.trim().toLowerCase());
+        if (correctParts.length !== userParts.length) return false;
+        return correctParts.every((v, idx) => v === userParts[idx]);
+    }
+    
+    // For dropdown: compare values part by part (user picks values, jawaban has "Label: value")
+    if (q.ui_info.type === 'dropdown') {
+        let lines = jawaban.split('\n').map(s => s.trim()).filter(s => s);
+        
+        // Extract just the value after colon (or the whole line if no colon)
+        const correctValues = lines.map(line => {
+            let val = line.replace(/^\d+\.\s*/, '');
+            const colonIdx = val.indexOf(':');
+            if (colonIdx !== -1) {
+                val = val.substring(colonIdx + 1).trim();
+            }
+            return val.toLowerCase();
+        });
+        
+        // User answer is saved with ||| delimiter
+        const userParts = user.split('|||').map(s => s.trim().toLowerCase());
+        const userFiltered = userParts.filter(s => s && s !== '-');
+        
+        if (correctValues.length !== userFiltered.length) return false;
+        return correctValues.every((v, idx) => v === userFiltered[idx]);
+    }
+    
+    // For matching: user picks the key (e.g. "branch"), jawaban has "key: description"
+    if (q.ui_info.type === 'matching') {
+        let lines = jawaban.split('\n').map(s => s.trim()).filter(s => s);
+        
+        // Extract just the key before colon
+        const correctKeys = lines.map(line => {
+            let val = line.replace(/^\d+\.\s*/, '');
+            const colonIdx = val.indexOf(':');
+            if (colonIdx !== -1) {
+                val = val.substring(0, colonIdx).trim();
+            }
+            return val.toLowerCase();
+        });
+        
+        // User answer is saved with ||| delimiter
+        const userParts = user.split('|||').map(s => s.trim().toLowerCase());
+        const userFiltered = userParts.filter(s => s && s !== '-');
+        
+        if (correctKeys.length !== userFiltered.length) return false;
+        return correctKeys.every((v, idx) => v === userFiltered[idx]);
+    }
+    
+    // Fallback: loose text comparison
+    return user.toLowerCase() === jawaban.toLowerCase();
 }
 
 // Language Toggle Logic

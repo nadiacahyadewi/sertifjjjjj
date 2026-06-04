@@ -53,7 +53,65 @@ const quizData = [
             "../Sample Soft Dev/3-2.jpg"
         ],
         "ui_info": {
-            "type": "generic"
+            "type": "dropdown",
+            "count": 5,
+            "dropdowns": [
+                {
+                    "id": "Dropdown 1",
+                    "label": "1. View",
+                    "options": [
+                        "converts event into request",
+                        "displays data",
+                        "interprets and passes data",
+                        "user clicks button",
+                        "validates request, stores data"
+                    ]
+                },
+                {
+                    "id": "Dropdown 2",
+                    "label": "2. Controller",
+                    "options": [
+                        "converts event into request",
+                        "displays data",
+                        "interprets and passes data",
+                        "user clicks button",
+                        "validates request, stores data"
+                    ]
+                },
+                {
+                    "id": "Dropdown 3",
+                    "label": "3. Model",
+                    "options": [
+                        "converts event into request",
+                        "displays data",
+                        "interprets and passes data",
+                        "user clicks button",
+                        "validates request, stores data"
+                    ]
+                },
+                {
+                    "id": "Dropdown 4",
+                    "label": "4. Controller",
+                    "options": [
+                        "converts event into request",
+                        "displays data",
+                        "interprets and passes data",
+                        "user clicks button",
+                        "validates request, stores data"
+                    ]
+                },
+                {
+                    "id": "Dropdown 5",
+                    "label": "5. View",
+                    "options": [
+                        "converts event into request",
+                        "displays data",
+                        "interprets and passes data",
+                        "user clicks button",
+                        "validates request, stores data"
+                    ]
+                }
+            ]
         }
     },
     {
@@ -152,7 +210,7 @@ const quizData = [
         ],
         "ui_info": {
             "type": "multiple-choice",
-            "is_multi": false,
+            "is_multi": true,
             "options": [
                 "A. A test case with no assertions",
                 "B. Any pre-conditions necessary to test the case",
@@ -195,7 +253,7 @@ const quizData = [
         ],
         "ui_info": {
             "type": "multiple-choice",
-            "is_multi": false,
+            "is_multi": true,
             "options": [
                 "A. Normalization decreases disk space usage.",
                 "B. Normalization reduces schema limitations.",
@@ -279,7 +337,7 @@ const quizData = [
         ],
         "ui_info": {
             "type": "multiple-choice",
-            "is_multi": true,
+            "is_multi": false,
             "options": [
                 "A. DelegateA = MethodA;",
                 "B. DelegateA += MethodA;",
@@ -313,7 +371,7 @@ const quizData = [
         "no": 16,
         "soal_en": "You create an application that contains a function named Red. Red calls a function named Blue.\nHow does the compiler return to the correct location in the code path after Blue finishes executing?",
         "soal_id": "Anda membuat aplikasi yang berisi sebuah fungsi bernama Red. Fungsi Red memanggil fungsi bernama Blue.\nBagaimana compiler dapat kembali ke lokasi yang tepat pada alur kode setelah fungsi Blue selesai dieksekusi?",
-        "pilihan_en": "A. Function calls are stored on the stack...\nB. Function calls are stored in memory on the heap...\nC. Function calls are stored in memory on the heap...\nD. Function calls are stored on the stack...",
+        "pilihan_en": "A. Function calls are stored on the stack. After a function completes, all its data is popped off the stack, leaving the last instruction at the top.\nB. Function calls are stored in memory on the heap. After a function completes, all its data is destroyed except for the last instruction.\nC. Function calls are stored in memory on the heap. The memory allocation unit keeps track of the instruction location.\nD. Function calls are stored on the stack. The memory allocation unit keeps track of the instruction location.",
         "jawaban": "A. Function calls are stored on the stack. After a function completes, all its data is popped off the stack, leaving the last instruction at the top.",
         "penjelasan": "Setiap pemanggilan fungsi beserta variabel lokalnya disimpan di dalam Call Stack. Ketika fungsi (Blue) selesai, instruksi atau datanya di-'pop' (dikeluarkan) dari stack, dan eksekusi dilanjutkan dari posisi fungsi pemanggilnya (Red) yang kini berada di posisi atas stack.",
         "images": [
@@ -321,12 +379,12 @@ const quizData = [
         ],
         "ui_info": {
             "type": "multiple-choice",
-            "is_multi": true,
+            "is_multi": false,
             "options": [
-                "A. Function calls are stored on the stack...",
-                "B. Function calls are stored in memory on the heap...",
-                "C. Function calls are stored in memory on the heap...",
-                "D. Function calls are stored on the stack..."
+                "A. Function calls are stored on the stack. After a function completes, all its data is popped off the stack, leaving the last instruction at the top.",
+                "B. Function calls are stored in memory on the heap. After a function completes, all its data is destroyed except for the last instruction.",
+                "C. Function calls are stored in memory on the heap. The memory allocation unit keeps track of the instruction location.",
+                "D. Function calls are stored on the stack. The memory allocation unit keeps track of the instruction location."
             ]
         }
     },
@@ -342,7 +400,7 @@ const quizData = [
         ],
         "ui_info": {
             "type": "multiple-choice",
-            "is_multi": false,
+            "is_multi": true,
             "options": [
                 "A. JSON objects can utilize namespaces.",
                 "B. JSON objects can be built with name/value pairs.",
@@ -363,14 +421,47 @@ const quizData = [
             "../Sample Soft Dev/18-2.jpg"
         ],
         "ui_info": {
-            "type": "generic"
+            "type": "dropdown",
+            "count": 3,
+            "dropdowns": [
+                {
+                    "id": "Dropdown 1",
+                    "label": "Declaration 1 (Console.WriteLine(Seconds + \" second\"))",
+                    "options": [
+                        "public override void Display()",
+                        "public void DisplayRaw()",
+                        "void IDisplayResult.Display()",
+                        "private void Display()"
+                    ]
+                },
+                {
+                    "id": "Dropdown 2",
+                    "label": "Declaration 2 (base.Display())",
+                    "options": [
+                        "public override void Display()",
+                        "public void DisplayRaw()",
+                        "void IDisplayResult.Display()",
+                        "private void Display()"
+                    ]
+                },
+                {
+                    "id": "Dropdown 3",
+                    "label": "Declaration 3 (Console.WriteLine(Seconds / 60d + \" minutes\"))",
+                    "options": [
+                        "public override void Display()",
+                        "public void DisplayRaw()",
+                        "void IDisplayResult.Display()",
+                        "private void Display()"
+                    ]
+                }
+            ]
         }
     },
     {
         "no": 19,
         "soal_en": "You need to create the following graphic (green fading to black with rounded corners) by using CSS.\nFor the background-image style, you should use the value:\nFor the border-radius style, you should use the value:",
         "soal_id": "Anda perlu membuat grafik (gradasi warna hijau pudar ke hitam dengan sudut membulat) menggunakan CSS.\nUntuk style background-image, Anda harus menggunakan nilai:\nUntuk style border-radius, Anda harus menggunakan nilai:",
-        "pilihan_en": "Dropdown 1: linear-gradient(to bottom, green, black);\nDropdown 2: 10px;",
+        "pilihan_en": "",
         "jawaban": "1. linear-gradient(to bottom, green, black);\n2. 10px;",
         "penjelasan": "Grafik memiliki warna hijau di atas dan gradasi memudar menjadi hitam di bawah, sehingga 'to bottom, green, black' adalah perintah gradient yang benar. Sudut objek tersebut melengkung rata di setiap sudut, sehingga nilainya cukup menggunakan '10px' saja.",
         "images": [
@@ -383,16 +474,22 @@ const quizData = [
             "dropdowns": [
                 {
                     "id": "Dropdown 1",
+                    "label": "background-image",
                     "options": [
-                        "linear-gradient(to bottom",
-                        "green",
-                        "black);"
+                        "linear-gradient(to top, green, black);",
+                        "linear-gradient(to bottom, green, black);",
+                        "radial-gradient(green, black);",
+                        "repeating-linear-gradient(green, black);"
                     ]
                 },
                 {
                     "id": "Dropdown 2",
+                    "label": "border-radius",
                     "options": [
-                        "10px;"
+                        "10px;",
+                        "10px, 10px, 10px;",
+                        "inherit;",
+                        "initial;"
                     ]
                 }
             ]
@@ -509,7 +606,7 @@ const quizData = [
         "no": 25,
         "soal_en": "Complete the sentences by selecting the correct option from each drop-down list.\n- Every web server has [ an IP ] address and domain name that identifies it on the internet.\n- The web server accepts client requests via [ an HTTP ] protocol, and responds by transferring data back to the client in the form of a web page.\n- A client with access can revise or remove the content hosted on the web server via [ an FTP ] protocol.",
         "soal_id": "Lengkapi kalimat berikut dengan memilih opsi yang tepat dari setiap daftar drop-down.\n- Setiap web server memiliki alamat [ IP ] dan nama domain yang mengidentifikasinya di internet.\n- Web server menerima request dari klien melalui protokol [ HTTP ], dan merespons dengan mentransfer data kembali ke klien dalam bentuk halaman web.\n- Klien yang memiliki akses dapat merevisi atau menghapus konten yang di-host di web server melalui protokol [ FTP ].",
-        "pilihan_en": "Dropdown 1: an IP\nDropdown 2: an HTTP\nDropdown 3: an FTP",
+        "pilihan_en": "",
         "jawaban": "1. an IP\n2. an HTTP\n3. an FTP",
         "penjelasan": "Setiap server di internet diidentifikasi secara unik oleh alamat IP. Komunikasi standar untuk melayani halaman web adalah melalui HTTP (Hypertext Transfer Protocol). Untuk memodifikasi (mengunggah/menghapus) file di server secara langsung, protokol yang umum digunakan adalah FTP (File Transfer Protocol).",
         "images": [
@@ -523,20 +620,35 @@ const quizData = [
             "dropdowns": [
                 {
                     "id": "Dropdown 1",
+                    "label": "Address type",
                     "options": [
-                        "an IP"
+                        "an FTP",
+                        "an HTML",
+                        "an HTTP",
+                        "an IP",
+                        "a TCP"
                     ]
                 },
                 {
                     "id": "Dropdown 2",
+                    "label": "Protocol (accepts requests)",
                     "options": [
-                        "an HTTP"
+                        "an FTP",
+                        "an HTML",
+                        "an HTTP",
+                        "an IP",
+                        "a TCP"
                     ]
                 },
                 {
                     "id": "Dropdown 3",
+                    "label": "Protocol (revise/remove content)",
                     "options": [
-                        "an FTP"
+                        "an FTP",
+                        "an HTML",
+                        "an HTTP",
+                        "an IP",
+                        "a TCP"
                     ]
                 }
             ]
@@ -630,8 +742,8 @@ const quizData = [
         "no": 30,
         "soal_en": "Identify the correct components of the MVC architectural pattern in the diagram.\nTop-right box receives input from User and interacts with Bottom-right box. Top-right box sends output to Bottom-left box, which presents to User.",
         "soal_id": "Identifikasi komponen yang benar dari pola arsitektur MVC pada diagram.\nKotak Kanan-Atas menerima input dari User dan berinteraksi dengan kotak Kanan-Bawah. Kotak Kanan-Atas juga mengirim ke Kiri-Bawah yang ditampilkan ke User.",
-        "pilihan_en": "Dropdowns for 3 boxes: Controller, Model, View.",
-        "jawaban": "Top-Right: Controller, Bottom-Right: Model, Bottom-Left: View",
+        "pilihan_en": "",
+        "jawaban": "Top-Right: Controller\nBottom-Right: Model\nBottom-Left: View",
         "penjelasan": "Dalam alur aplikasi web MVC tradisional: Pengguna (User) mengirim request ke Controller (Top-Right). Controller mengolah logika dan memperbarui Model (Bottom-Right). Setelah itu, Controller memilih View (Bottom-Left) dan meneruskan data Model kepadanya. View kemudian di-render menjadi antarmuka untuk Pengguna.",
         "images": [
             "../Sample Soft Dev/30-1.jpg",
@@ -640,14 +752,33 @@ const quizData = [
         ],
         "ui_info": {
             "type": "dropdown",
-            "count": 1,
+            "count": 3,
             "dropdowns": [
                 {
-                    "id": "Dropdowns for 3 boxes",
+                    "id": "Dropdown 1",
+                    "label": "Top-Right (receives input from User)",
                     "options": [
                         "Controller",
                         "Model",
-                        "View."
+                        "View"
+                    ]
+                },
+                {
+                    "id": "Dropdown 2",
+                    "label": "Bottom-Right (interacts with Top-Right)",
+                    "options": [
+                        "Controller",
+                        "Model",
+                        "View"
+                    ]
+                },
+                {
+                    "id": "Dropdown 3",
+                    "label": "Bottom-Left (presents to User)",
+                    "options": [
+                        "Controller",
+                        "Model",
+                        "View"
                     ]
                 }
             ]
@@ -816,11 +947,39 @@ const quizData = [
         "ui_info": {
             "type": "dropdown",
             "count": 3,
-            "dropdowns": [],
-            "fallback_options": [
-                "BEGIN TRAN;",
-                "ROLLBACK TRAN;",
-                "COMMIT TRAN;"
+            "dropdowns": [
+                {
+                    "id": "Dropdown 1",
+                    "label": "Before DELETE statement",
+                    "options": [
+                        "TRY TRAN;",
+                        "BEGIN TRAN;",
+                        "TRAN;",
+                        "BEGIN;"
+                    ]
+                },
+                {
+                    "id": "Dropdown 2",
+                    "label": "IF @@ROWCOUNT > 1 (cancel)",
+                    "options": [
+                        "SAVE TRAN;",
+                        "REVOKE TRAN;",
+                        "ROLLBACK TRAN;",
+                        "END TRAN;",
+                        "COMMIT TRAN;"
+                    ]
+                },
+                {
+                    "id": "Dropdown 3",
+                    "label": "ELSE (keep deletion)",
+                    "options": [
+                        "SAVE TRAN;",
+                        "CATCH TRAN;",
+                        "ROLLBACK TRAN;",
+                        "GRANT TRAN;",
+                        "COMMIT TRAN;"
+                    ]
+                }
             ]
         }
     },

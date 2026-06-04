@@ -237,4 +237,86 @@ select.inline-select {
 @media (max-width: 600px) {
     .app-container { height: 100vh; border: none; }
     .question-container, #start-screen, #result-screen { padding: 1.5rem; }
+    .score-summary { flex-wrap: wrap; }
+    .score-card { min-width: calc(50% - 0.5rem); }
+}
+
+/* Score Summary */
+.score-summary {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    flex-shrink: 0;
+}
+.score-card {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 1rem 0.75rem;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: #f9fafb;
+}
+.score-card .score-value {
+    font-size: 1.75rem;
+    font-weight: 800;
+    line-height: 1.2;
+}
+.score-card .score-label {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    font-weight: 500;
+}
+.score-total { background: #f0f4ff; border-color: #93c5fd; }
+.score-total .score-value { color: #1d4ed8; }
+.score-correct { background: #ecfdf5; border-color: #34d399; }
+.score-correct .score-value { color: #059669; }
+.score-wrong { background: #fef2f2; border-color: #fca5a5; }
+.score-wrong .score-value { color: #dc2626; }
+.score-unanswered { background: #fffbeb; border-color: #fcd34d; }
+.score-unanswered .score-value { color: #b45309; }
+
+/* Review Item Status */
+.review-item.is-correct { border-left: 4px solid #059669; }
+.review-item.is-wrong { border-left: 4px solid #dc2626; }
+.review-item.is-unanswered { border-left: 4px solid #d97706; }
+
+.review-status {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+}
+.review-status.correct { background: #ecfdf5; color: #059669; }
+.review-status.wrong { background: #fef2f2; color: #dc2626; }
+.review-status.unanswered { background: #fffbeb; color: #b45309; }
+
+/* Options list in review */
+.review-options {
+    background: #f9fafb;
+    border: 1px solid var(--border-color);
+    padding: 0.75rem 1rem;
+    margin-bottom: 1rem;
+    border-radius: 4px;
+}
+.review-options .review-opt-title {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+.review-options ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.review-options ul li {
+    padding: 0.3rem 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
 }
